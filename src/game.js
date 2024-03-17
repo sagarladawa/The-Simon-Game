@@ -7,9 +7,17 @@ var userClickedPattern = [];
 var gameStart = false;
 var level = 0;
 
+var highscore = 0; //TODO: Yet to be able to retain value for a session
+$("#highscoreMsg").hide();
+
 $(document).on("keydown", function(){
     if (!gameStart)
     {
+        if($("#highscoreMsg"))
+        {
+            $("#highscoreMsg").hide();
+        }
+
         $("#level-title").text("Level " + level);
         nextSequence();
         gameStart = true;
@@ -66,6 +74,12 @@ function checkAnswer(levelAnswer)
     }
     else
     {
+        if (gamePattern.length > highscore)
+        {
+            highscore = gamePattern.length;
+            console.log("HS!");
+            $("#highscoreMsg").show();
+        }
         gameOver();
     }
 }
