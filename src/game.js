@@ -4,7 +4,17 @@ var buttonColors = ["red","blue","green","yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 
-nextSequence();
+var gameStart = false;
+var level = 0;
+
+$(document).on("keydown", function(){
+    if (!gameStart)
+    {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        gameStart = true;
+    }
+});
 
 // Add on-click event listener to buttons
 $(".btn").on("click", function () {
@@ -27,6 +37,9 @@ function animatePress(color)
 function nextSequence()
 {
     userClickedPattern = [];
+    
+    level++;
+    $("#level-title").text("Level " + level);
 
     var random = Math.floor(Math.random()*4);
     var randomChosenColor = buttonColors[random];
