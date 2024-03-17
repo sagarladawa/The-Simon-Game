@@ -66,12 +66,31 @@ function checkAnswer(levelAnswer)
     }
     else
     {
-        console.log("Wrong!");
+        gameOver();
     }
 }
 
-function playSound(color)
+function gameOver()
 {
-    var sound = new Audio("assets/sounds/" + color + ".mp3");
+    playSound("wrong");
+    $("body").addClass("game-over");
+    $("#level-title").text("Game Over! Press Any Key to Restart");
+    setTimeout(function(){
+        $("body").removeClass("game-over");
+    }, 200);
+    
+    startOver();
+}
+
+function startOver()
+{
+    gameStart = false;
+    level = 0;
+    gamePattern = [];
+}
+
+function playSound(name)
+{
+    var sound = new Audio("assets/sounds/" + name + ".mp3");
     sound.play();
 }
