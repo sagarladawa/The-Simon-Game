@@ -16,6 +16,7 @@ $(document).on("keydown", function(){
     }
 });
 
+
 // Add on-click event listener to buttons
 $(".btn").on("click", function () {
     var userChosenColor = $(this).attr("id");
@@ -32,7 +33,10 @@ function animatePress(color)
     setTimeout(function (){
         buttonElem.removeClass("pressed")
     }, 150);
+
+    checkAnswer(userClickedPattern.length-1); //Index of last pattern color selected
 }
+
 
 function nextSequence()
 {
@@ -47,6 +51,23 @@ function nextSequence()
 
     $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100);
     playSound(randomChosenColor);
+}
+
+function checkAnswer(levelAnswer)
+{
+    if (gamePattern[levelAnswer] === userClickedPattern[levelAnswer])
+    {
+        if (gamePattern.length === userClickedPattern.length)
+        {
+            setTimeout(function(){
+                nextSequence();
+            }, 1000)
+        }
+    }
+    else
+    {
+        console.log("Wrong!");
+    }
 }
 
 function playSound(color)
